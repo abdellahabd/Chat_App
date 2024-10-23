@@ -11,9 +11,10 @@
       referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css" />
     <title>Chat App</title>
+    <script defer="main.js"></script>
   </head>
   <body>
-    <h1>IChat 💬</h1>
+    <h1 class="title">IChat 💬</h1>
     <div class="main">
       <div class="name">
         <span><i class="fa-regular fa-user"></i></span>
@@ -24,33 +25,34 @@
           class="name-input"
           id="name-input" />
       </div>
-      <ul class="messsages-containers">
+      <ul class="message-container">
         <li class="message-left">
           <p class="message">
             asalam Alaikum
-            <span>abdullah ⚫ 20 june 8:55 </span>
+            <span>abdullah ● 20 june 8:55 </span>
           </p>
         </li>
         <li class="message-right">
           <p class="message">
             wa alaikum salam
-            <span>zoubir ⚫ 20 june 8:58 </span>
+            <span>zoubir ● 20 june 8:58 </span>
           </p>
         </li>
         <li class="message-feedback">
           <p class="feedback">abdellah is typing a message ...</p>
         </li>
       </ul>
+
+      <form class="message-form">
+        <input type="text" class="message-input" id="message-input" />
+
+        <div class="v-divider"></div>
+        <button type="submit" class="send-button">
+          send <span><i class="fa-regular fa-paper-plane"></i></span>
+        </button>
+      </form>
     </div>
-    <form class="message-from">
-        <input
-          type="text"
-          class="name-input"
-          id="name-input" />
-      </div>
-      <div class="v-divider"></div>
-      <button type="submit" class="send-button">send  <span><i class="fa-regular fa-paper-plane"></i></span></button>
-    </form>
     <h3 class="clients-total" id="clients-total">Clients Total : 2</h3>
+    <script defer src="/socket.io/socket.io.js"></script>
   </body>
 </html>
