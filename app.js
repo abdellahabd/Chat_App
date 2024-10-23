@@ -28,6 +28,10 @@ io.on("connection", (socket) => {
     console.log(`Client ${socket.id} disconnect`);
     Client_Number.delete(socket.id);
   });
+
+  socket.on("message", (data) => {
+    socket.broadcast.emit("chat_message", data);
+  });
 });
 
 httpServer.listen(port);
