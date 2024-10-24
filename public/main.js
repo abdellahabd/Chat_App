@@ -12,6 +12,9 @@ message_form.addEventListener("submit", (e) => {
 });
 
 function sendMessage() {
+  if (message_input.value == "") {
+    return;
+  }
   const data = {
     name: name_input.value,
     message: message_input.value,
@@ -25,6 +28,7 @@ function sendMessage() {
 }
 
 function addMessageToUi(isfromMe, data) {
+  clearFeedback();
   const element = `     
    <li class=${isfromMe ? "message-right" : "message-left"}>
           <p class="message">
@@ -34,6 +38,7 @@ function addMessageToUi(isfromMe, data) {
         </li>`;
 
   message_contiener.innerHTML += element;
+  AutomaticallyScroll();
 }
 
 socket.on("Client-total", (data) => {
@@ -43,3 +48,27 @@ socket.on("Client-total", (data) => {
 socket.on("chat_message", (data) => {
   addMessageToUi(false, data);
 });
+
+function AutomaticallyScroll() {
+  message_contiener.scrollTo(0, message_contiener.scrollHeight);
+}
+
+message_input.addEventListener("keypress", (e) => {
+  socket.emit("feedback", name_input.value);
+});
+
+socket.on("feedback", (username) => {
+  clearFeedback();
+  const feedback_element = `        <li class="message-feedback">
+    <p class="feedback">
+    ✍ ${username} is typing a message...
+    </p>
+    </li>`;
+  message_contiener.innerHTML += feedback_element;
+});
+
+function clearFeedback() {
+  document.querySelectorAll("li.message-feedback").forEach((element) => {
+    element.parentNode.removeChild(element);
+  });
+}

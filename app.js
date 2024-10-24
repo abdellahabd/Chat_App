@@ -32,6 +32,10 @@ io.on("connection", (socket) => {
   socket.on("message", (data) => {
     socket.broadcast.emit("chat_message", data);
   });
+
+  socket.on("feedback", (userName) => {
+    socket.broadcast.emit("feedback", userName);
+  });
 });
 
 httpServer.listen(port);
